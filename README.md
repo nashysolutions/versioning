@@ -25,6 +25,7 @@ Alternatively, add the dependency directly to your `Package.swift` file:
 dependencies: [
     .package(url: "https://github.com/nashysolutions/versioning", from: "1.0.0")
 ]# versioning
+```
 
 # Usage
 
