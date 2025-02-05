@@ -11,7 +11,7 @@ import Foundation
 ///
 /// This struct supports encoding, decoding, and hashing, making it suitable for use in various
 /// persistence and comparison contexts.
-public struct FeatureFlag: Codable, Hashable {
+public struct FeatureFlag: Codable, Hashable, Sendable {
 
     /// The unique name of the feature flag.
     ///
