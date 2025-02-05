@@ -22,6 +22,7 @@ import Combine
 /// - Similarly, a feature that is enabled by default can be explicitly disabled.
 /// Overrides are managed using the `setFeatureOverride` and `clearFeatureOverride` methods, and take precedence
 /// over default availability rules defined in the registry.
+@MainActor
 public final class FeatureFlags: ObservableObject {
     
     /// A published property containing the list of currently enabled feature flags.
