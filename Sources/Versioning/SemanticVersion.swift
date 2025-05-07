@@ -50,6 +50,20 @@ public struct SemanticVersion: Codable, Sendable, Hashable, Comparable, CustomSt
         self.minor = components.count > 1 ? components[1] : 0
         self.patch = components.count > 2 ? components[2] : 0
     }
+    
+    public init?(_ string: String) {
+        let parts = string.split(separator: ".")
+        guard parts.count <= 3,
+              let major = parts.indices.contains(0) ? Int(parts[0]) : 0,
+              let minor = parts.indices.contains(1) ? Int(parts[1]) : 0,
+              let patch = parts.indices.contains(2) ? Int(parts[2]) : 0
+        else {
+            return nil
+        }
+        self.major = major
+        self.minor = minor
+        self.patch = patch
+    }
 
     /// A textual representation of the semantic version.
     ///
@@ -62,16 +76,6 @@ public struct SemanticVersion: Codable, Sendable, Hashable, Comparable, CustomSt
         "\(major).\(minor).\(patch)"
     }
 
-    /// Determines if two semantic versions are equal.
-    ///
-    /// - Parameters:
-    ///   - lhs: The left-hand side `SemanticVersion`.
-    ///   - rhs: The right-hand side `SemanticVersion`.
-    /// - Returns: `true` if both versions have identical `major`, `minor`, and `patch` values.
-    public static func == (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool {
-        lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch
-    }
-
     /// Compares two semantic versions for order.
     ///
     /// - Parameters:
@@ -79,12 +83,37 @@ public struct SemanticVersion: Codable, Sendable, Hashable, Comparable, CustomSt
     ///   - rhs: The right-hand side `SemanticVersion`.
     /// - Returns: `true` if `lhs` is less than `rhs` when comparing `major`, `minor`, and `patch` in sequence.
     public static func < (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool {
-        if lhs.major != rhs.major {
-            return lhs.major < rhs.major
+        let lhsComponents = lhs.normalized
+        let rhsComponents = rhs.normalized
+        let count = max(lhsComponents.count, rhsComponents.count)
+        for i in 0..<count {
+            let left = i < lhsComponents.count ? lhsComponents[i] : 0
+            let right = i < rhsComponents.count ? rhsComponents[i] : 0
+            if left != right {
+                return left < right
+            }
         }
-        if lhs.minor != rhs.minor {
-            return lhs.minor < rhs.minor
+        return false
+    }
+}
+
+public extension SemanticVersion {
+    
+    /// Determines if two semantic versions are equal.
+    ///
+    /// - Parameters:
+    ///   - lhs: The left-hand side `SemanticVersion`.
+    ///   - rhs: The right-hand side `SemanticVersion`.
+    /// - Returns: `true` if both versions have identical `major`, `minor`, and `patch` values.
+    static func == (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool {
+        lhs.normalized == rhs.normalized
+    }
+    
+    private var normalized: [Int] {
+        var components = [major, minor, patch]
+        while components.last == 0 {
+            components.removeLast()
         }
-        return lhs.patch < rhs.patch
+        return components
     }
 }
