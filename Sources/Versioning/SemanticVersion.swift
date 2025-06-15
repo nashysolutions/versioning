@@ -1,6 +1,6 @@
 //
 //  SemanticVersion.swift
-//  common-resources
+//  versioning
 //
 //  Created by Robert Nash on 26/12/2024.
 //

@@ -1,35 +1,45 @@
 # Versioning
 
-A lightweight and modern Swift library for handling semantic versioning. `Versioning` makes it simple to define and compare semantic versions.
+**Versioning** is a lightweight, modern Swift library for working with [semantic versioning](https://semver.org/).  
+It provides a simple and expressive API for defining, comparing, and validating version numbers.
 
-## Installation
+---
 
-### Swift Package Manager
+## Features
 
-To add `Versioning` to your project:
+- ✅ Intuitive `SemanticVersion` type
+- ✍️ Initialisers for integers, strings, and string literals
+- 🔐 Safe comparisons with automatic version normalisation
+- 📦 Codable, Comparable, Hashable, Sendable
+- 🧪 Fully testable and platform-agnostic
 
-1. Open your project in Xcode.
-2. Go to **File > Add Packages**.
-3. Enter the repository URL: `https://github.com/nashysolutions/versioning`.
-4. Choose the version or branch and integrate the package.
+---
 
-Alternatively, add the dependency directly to your `Package.swift` file:
+## 📦 Installation
+
+Add this package via Swift Package Manager:
 
 ```swift
-dependencies: [
-    .package(url: "https://github.com/nashysolutions/versioning", from: "1.0.0")
-]# versioning
+.product(name: "Versioning", package: "versioning")
 ```
 
-# Usage
+## Usage
 
-### SemanticVersion
+You can construct a version using individual components:
 
 ```swift
-let version1 = SemanticVersion(major: 1, minor: 0, patch: 0)
-let version2: SemanticVersion = "1.2.3"
+let version = SemanticVersion(major: 2, minor: 1, patch: 4)
+```
 
-if version1 < version2 {
-    print("\(version1) is older than \(version2)")
-}
+Or string literals.
+
+```swift
+let a: SemanticVersion = "1"
+let b: SemanticVersion = "1.0"
+let c: SemanticVersion = "1.0.0"
+
+// normalised
+assert(a == b)
+assert(b == c)
+assert(a == c)
 ```
