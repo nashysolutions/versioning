@@ -1,5 +1,8 @@
 # Versioning
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnashysolutions%2Fversioning%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/nashysolutions/versioning)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnashysolutions%2Fversioning%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/nashysolutions/versioning)
+
 **Versioning** is a lightweight, modern Swift library for working with [semantic versioning](https://semver.org/).  
 It provides a simple and expressive API for defining, comparing, and validating version numbers.
 
